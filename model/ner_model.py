@@ -193,7 +193,6 @@ class NERModel(BaseModel):
                     cell_fw, cell_bw, self.word_embeddings,
                     sequence_length=self.sequence_lengths, dtype=tf.float32)
             output = tf.concat([output_fw, output_bw], axis=-1) # shape = [batch_size, max_sentence_length,2*hidden_size_lstm]
-            output = tf.boolean_mask(output,self.mask)          # shape = [batch_size, 2*hidden_size_lstm]
             output = tf.nn.dropout(output, self.dropout)
 
         with tf.variable_scope("proj"):
